@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title><center>**Images of the Russian Empire: Colorizing the**</title>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+        
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        
+        
+    </head>
+    <body class="vscode-light">
+        <h2 id="centerimages-of-the-russian-empire-colorizing-the"><center><strong>Images of the Russian Empire: Colorizing the</strong></h2>
+<h2 id="centerprokudin-gorskii-photo-collection"><center><strong>Prokudin-Gorskii photo collection</strong></h2>
+<h3 id="centercs-194-project-1"><center><strong>CS 194 Project 1</strong></h3>
+<h3 id="centerwenzhe-tong"><center>Wenzhe Tong</h3>
+<h2 id="background">Background</h2>
+<hr>
+<p><a href="http://en.wikipedia.org/wiki/Prokudin-Gorskii">Sergei Mikhailovich Prokudin-Gorskii</a> (1863-1944)  was a man well ahead of his time. Convinced, as early as 1907, that color photography was the wave of the future, he won Tzar's special permission to travel across the vast Russian Empire and take color photographs of everything he saw including the only color portrait of <a href="http://en.wikipedia.org/wiki/Leo_Tolstoy">Leo Tolstoy</a>.</p>
+<p>His idea was simple: record three exposures of every scene onto a glass plate using a red, a green, and a blue filter. The LoC has recently digitized the negatives and made them available on-line.</p>
+<h2 id="approach">Approach</h2>
+<hr>
+<p>Since we want to align 3 color channels, with the idea of all color channel have similar brightness. So by comparing pixel brightness of 2 channels, use the Equation of Sum of Squared Differences (SSD) to represent alignment level. Find the lowest SSD to align 2 channels.</p>
+<p>When processing big images (around 3000x3000 pixels), it is computationally expensive. We use pyramid method to deal with the problem. We resize the photo and aligning form small picture to big picture. As for a image sized around 400x400, the shift is less than 15. Based on this, we determined our pyramid aligning parameters and implementing our algorithm.</p>
+<h2 id="bells-and-whistles">Bells and Whistles</h2>
+<hr>
+<h3 id="auto-cropping"><strong>Auto Cropping</strong></h3>
+<p>We calculate SSD for each columns and rows. As figure shown below, SSD on edge is usually much more bigger than SSD in the middle of the picture. So we can compare average SSD and edge SSD to detect the edge and then crop them.</p>
+<center>
+<img src=" \ssd_y_avg.png" width = "400">  </br>
+row SSD compared to average SSD </center>
+<h3 id="auto-cropping-results"><strong>Auto Cropping results</strong></h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img src=" \auto_crop_0.jpg" width="300" /></td>
+<td style="text-align:center"><img src=" \before_crop_0.jpg" width="310" /></td>
+</tr>
+<tr>
+<td style="text-align:center">after auto cropping</td>
+<td style="text-align:center">monastery.jpg</td>
+</tr>
+<tr>
+<td style="text-align:center"><img src=" \auto_crop_1.jpg" width="300" /></td>
+<td style="text-align:center"><img src=" \before_crop_1.jpg" width="310" /></td>
+</tr>
+<tr>
+<td style="text-align:center">after auto cropping</td>
+<td style="text-align:center">cathedral.jpg</td>
+</tr>
+</tbody>
+</table>
+<h2 id="all-results">All Results</h2>
+<hr>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+<th style="text-align:center"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img src=" \output\cathedral-r[12, 3]-g[5, 2].jpg" width="300" /></td>
+<td style="text-align:center"><img src=" \output\monastery-r[3, 2]-g[-3, 2].jpg" width="300" /></td>
+<td style="text-align:center"><img src=" \output\tobolsk-r[6, 3]-g[3, 3].jpg" width="300" /></td>
+</tr>
+<tr>
+<td style="text-align:center">cathedral-R[12,3]-G[5,2]</td>
+<td style="text-align:center">monastery-R[3,2]-G[-3,2]</td>
+<td style="text-align:center">tobolsk-R[6,3]-G[3,3]</td>
+</tr>
+<tr>
+<td style="text-align:center"><img src=" \output\emir-r[103, 57]-g[49, 24].jpg" witdh="300" /></td>
+<td style="text-align:center"><img src=" \output\harvesters-r[124, 13]-g[59, 16].jpg" witdh="300" /></td>
+<td style="text-align:center"><img src=" \output\icon-r[90, 23]-g[41, 17].jpg" witdh="300" /></td>
+</tr>
+<tr>
+<td style="text-align:center">emir-R[103,57]-G[49,24]</td>
+<td style="text-align:center">harvesters-R[124,13]-G[59,16]</td>
+<td style="text-align:center">icon-R[90,23]-G[41,17]</td>
+</tr>
+<tr>
+<td style="text-align:center"><img src=" \output\lady-r[116, 11]-g[56, 8].jpg " witdh="300" /></td>
+<td style="text-align:center"><img src=" \output\melons-r[178, 13]-g[82, 11].jpg " witdh="300" /></td>
+<td style="text-align:center"><img src=" \output\onion_church-r[108, 36]-g[51, 27].jpg" witdh="300" /></td>
+</tr>
+<tr>
+<td style="text-align:center">lady-r[116, 11]-g[56, 8].jpg</td>
+<td style="text-align:center">melons-r[178, 13]-g[82, 11].jpg</td>
+<td style="text-align:center">onion_church-r[108, 36]-g[51, 27].jpg</td>
+</tr>
+<tr>
+<td style="text-align:center"><img src=" \output\self_portrait-r[176, 37]-g[79, 29].jpg " witdh="300" /></td>
+<td style="text-align:center"><img src=" \output\three_generations-r[112, 11]-g[53, 14].jpg " witdh="300" /></td>
+<td style="text-align:center"><img src=" \output\train-r[87, 32]-g[43, 6].jpg" witdh="300" /></td>
+</tr>
+<tr>
+<td style="text-align:center">self_portrait-r[176, 37]-g[79, 29].jpg</td>
+<td style="text-align:center">three_generations-r[112, 11]-g[53, 14].jpg</td>
+<td style="text-align:center">train-r[87, 32]-g[43, 6].jpg</td>
+</tr>
+<tr>
+<td style="text-align:center"><img src=" \output\village-r[138, 22]-g[65, 12].jpg " witdh="300" /></td>
+<td style="text-align:center"><img src=" \output\building-r[1, 2]-g[1, 2].jpg " witdh="300" /></td>
+<td style="text-align:center"><img src=" \output\church-r[4, 1]-g[2, 1].jpg" witdh="300" /></td>
+</tr>
+<tr>
+<td style="text-align:center">village-r[138, 22]-g[65, 12].jpg</td>
+<td style="text-align:center">building-r[1, 2]-g[1, 2].jpg</td>
+<td style="text-align:center">church-r[4, 1]-g[2, 1].jpg</td>
+</tr>
+</tbody>
+</table>
+
+    </body>
+    </html>
